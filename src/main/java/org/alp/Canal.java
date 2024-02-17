@@ -10,6 +10,9 @@ public class Canal implements ObserverDeCapteurAsync, CapteurAsync {
 
     private ObserverDeCapteur observer;
 
+    private Capteur capteur;
+
+
     // async observer.update
     @Override
     public void update() {
@@ -19,4 +22,21 @@ public class Canal implements ObserverDeCapteurAsync, CapteurAsync {
 //  ??      }, randomDelay(500, 1500), TimeUnit.MILLISECONDS);
 
     }
+
+    // pattern observer: capteur - subject, afficheur - observer
+    public void attachSubjectToObserver(Capteur capteur, ObserverDeCapteur observer) {
+        this.capteur = capteur;
+        this.observer = observer;
+    }
+
+    public void detachSubjectFromObserver() {
+        this.capteur = null;
+        this.observer = null;
+        this.scheduler = null;
+    }
+
+    public void setScheduler(ScheduledExecutorService scheduler) {
+        this.scheduler = scheduler;
+    }
+
 }

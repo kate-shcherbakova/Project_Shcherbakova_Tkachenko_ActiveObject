@@ -13,4 +13,8 @@ public interface Capteur {
     boolean getIsLocked();
 
     Set<Canal> getCanalsFromCapteurImpl();
+
+    void attach(Canal canal, ObserverDeCapteur afficheur);
+
+    void detach(Canal canal);
 }

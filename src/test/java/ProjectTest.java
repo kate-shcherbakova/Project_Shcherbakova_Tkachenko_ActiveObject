@@ -28,6 +28,22 @@ public class ProjectTest {
         this.capteur = new CapteurImpl();
         this.scheduler = Executors.newScheduledThreadPool(numberOfThreads);
 
+        Canal canal1 = new Canal();
+        Canal canal2 = new Canal();
+        Canal canal3 = new Canal();
+
+        Afficheur afficheur1 = new Afficheur();
+//        Afficheur afficheur1 = new Afficheur("Afficheur 1");
+        Afficheur afficheur2 = new Afficheur();
+        Afficheur afficheur3 = new Afficheur();
+
+        canal1.setScheduler(scheduler);
+        canal2.setScheduler(scheduler);
+        canal3.setScheduler(scheduler);
+
+        this.capteur.attach(canal1, afficheur1);
+        this.capteur.attach(canal2, afficheur2);
+        this.capteur.attach(canal3, afficheur3);
 
     }
 

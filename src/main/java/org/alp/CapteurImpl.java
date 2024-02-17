@@ -11,13 +11,12 @@ public class CapteurImpl implements Capteur {
 
     private boolean isLocked = false;
 
-    private Set<Canal> canals;
-
+    private Set<Canal> canals = new HashSet<>();
 
     @Override
     public void setStrategy(AlgoDiffusion strategy) {
         this.strategy = strategy;
-        // ?? this.strategy.configure(this);
+        this.strategy.configure(this);
     }
 
     @Override
@@ -25,12 +24,12 @@ public class CapteurImpl implements Capteur {
         if (!this.isLocked) {
             this.value++;
         }
-        Logger.getGlobal().info("\nValue during tick() :" + this.value + "\n");
+        Logger.getGlobal().info("\nValue during tick(): " + this.value + "\n");
         this.strategy.execute();
     }
 
     @Override
-    public boolean getIsLocked(){
+    public boolean getIsLocked() {
         return this.isLocked;
     }
 
@@ -41,4 +40,16 @@ public class CapteurImpl implements Capteur {
     }
 
 
+    // pattern observer: capteur - subject, afficheur - observer
+    @Override
+    public void attach(Canal canal, ObserverDeCapteur afficheur) {
+        canal.attachSubjectToObserver(this, afficheur);
+        this.canals.add(canal);
+    }
+
+    @Override
+    public void detach(Canal canal) {
+        canal.detachSubjectFromObserver();
+        this.canals.remove(canal);
+    }
 }
