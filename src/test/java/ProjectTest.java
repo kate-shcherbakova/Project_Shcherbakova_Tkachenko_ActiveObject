@@ -13,8 +13,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import static java.lang.Thread.sleep;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ProjectTest {
 
@@ -47,7 +46,7 @@ public class ProjectTest {
         this.capteur.attach(canal3, afficheur3);
 
     }
-/*
+
     @Test
     public void diffusionAtomiqueTest() throws InterruptedException {
 
@@ -72,11 +71,11 @@ public class ProjectTest {
 
         Logger.getGlobal().info("\ndiffusionAtomiqueTest result: " + finalValues + "\n");
 
-        /*
-        for (int i=0; i< finalValues.size()-1; i++){
-            assertEquals(finalValues.get(i), finalValues.get(i + 1));
-        } */
-//    }
+        // check - all final values are the same for all afficheurs
+        for (int i = 1; i < finalValues.size(); i++) {
+            assertEquals(finalValues.get(0), finalValues.get(i));
+        }
+    }
 
 
     @Test
@@ -101,5 +100,10 @@ public class ProjectTest {
         List<List<Integer>> finalValues = this.capteur.getFinalValuesFromCanals();
 
         Logger.getGlobal().info("\ndiffusionSequentielleTest result: " + finalValues + "\n");
+
+        // check - all final values are the same for all afficheurs
+        for (int i = 1; i < finalValues.size(); i++) {
+            assertEquals(finalValues.get(0), finalValues.get(i));
+        }
     }
 }
