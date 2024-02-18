@@ -2,17 +2,30 @@ package org.alp;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
 
+/**
+ * Diffusion sequentielle strategy for transmitting Capteur (subject) values to Afficheur (observer)
+ * Ensures that all observers receive the same value
+ * Sequence of receiving the value may vary
+ */
 public class DiffusionSequentielle implements AlgoDiffusion {
     private Capteur capteur;
     private Set<Canal> canalsFromCapteurImpl;
 
+    /**
+     * Proceeds configuration operations
+     *
+     * @param capteur The sensor to configure
+     */
     public void configure(Capteur capteur) {
         this.capteur = capteur;
         this.canalsFromCapteurImpl = new HashSet<>();
     }
 
+    /**
+     * Executes the diffusion sequentielle
+     * Signals observers through canals to update
+     */
     @Override
     public void execute() {
         // signal to observer
@@ -26,6 +39,11 @@ public class DiffusionSequentielle implements AlgoDiffusion {
 
     }
 
+    /**
+     * Manages a canal after it has received a value
+     *
+     * @param canal The canal that has received a value
+     */
     @Override
     public void manageCanal(Canal canal) {
         this.canalsFromCapteurImpl.remove(canal);
