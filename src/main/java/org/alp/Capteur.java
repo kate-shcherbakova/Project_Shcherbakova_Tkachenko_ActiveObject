@@ -2,7 +2,6 @@ package org.alp;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 
 public interface Capteur {
 
