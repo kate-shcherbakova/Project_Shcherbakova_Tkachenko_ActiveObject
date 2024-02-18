@@ -6,6 +6,7 @@ import java.util.Set;
 /**
  * Diffusion atomique strategy for transmitting Capteur (subject) values to Afficheur (observer)
  * Ensures that all observers receive the same value
+ * Role: Concrete strategy
  */
 public class DiffusionAtomique implements AlgoDiffusion {
     private Capteur capteur;

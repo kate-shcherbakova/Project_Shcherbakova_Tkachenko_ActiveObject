@@ -6,17 +6,30 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
+/**
+ * Represents an observer that receives updates from a sensor asynchronously
+ * Role: Concrete observer
+ */
 public class Afficheur implements ObserverDeCapteur {
 
     private final List<Integer> finalValues = new ArrayList<>();
 
     private String name;
 
+    /**
+     * Is used for testing purposes
+     *
+     * @param name The name of the Afficheur
+     */
     public Afficheur(String name) {
         this.name = name;
     }
 
-    // Canal transfer a signal to update
+    /**
+     * Updates the Afficheur with the value received from the Canal
+     *
+     * @param canal The Canal from which the value is received
+     */
     @Override
     public void update(Canal canal) {
 
@@ -30,6 +43,11 @@ public class Afficheur implements ObserverDeCapteur {
         }
     }
 
+    /**
+     * Gets the values received by the Afficheur
+     *
+     * @return A list of the values received by the Afficheur
+     */
     @Override
     public List<Integer> getFinalValues() {
         Logger.getGlobal().info("Final values " + this.name + finalValues + "\n");

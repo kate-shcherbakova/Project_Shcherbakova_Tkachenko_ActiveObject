@@ -7,6 +7,7 @@ import java.util.Set;
  * Diffusion sequentielle strategy for transmitting Capteur (subject) values to Afficheur (observer)
  * Ensures that all observers receive the same value
  * Sequence of receiving the value may vary
+ * Role: Concrete strategy
  */
 public class DiffusionSequentielle implements AlgoDiffusion {
     private Capteur capteur;
