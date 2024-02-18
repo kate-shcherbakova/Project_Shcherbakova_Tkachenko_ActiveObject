@@ -32,7 +32,7 @@ public class Afficheur implements ObserverDeCapteur {
 
     @Override
     public List<Integer> getFinalValues() {
-        Logger.getGlobal().info("Final values " + this.name + finalValues.toString() + "\n");
+        Logger.getGlobal().info("Final values " + this.name + finalValues + "\n");
         return this.finalValues;
     }
 }

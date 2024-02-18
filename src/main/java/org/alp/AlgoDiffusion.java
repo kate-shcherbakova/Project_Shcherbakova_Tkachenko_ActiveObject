@@ -6,5 +6,5 @@ public interface AlgoDiffusion {
 
     void execute();
 
-    void unblockCanal(Canal canal);
+    void manageCanal(Canal canal);
 }

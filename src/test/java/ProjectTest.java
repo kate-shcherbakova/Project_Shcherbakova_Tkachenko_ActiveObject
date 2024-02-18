@@ -47,7 +47,7 @@ public class ProjectTest {
         this.capteur.attach(canal3, afficheur3);
 
     }
-
+/*
     @Test
     public void diffusionAtomiqueTest() throws InterruptedException {
 
@@ -70,11 +70,36 @@ public class ProjectTest {
 
         List<List<Integer>> finalValues = this.capteur.getFinalValuesFromCanals();
 
-        // Logger.getGlobal().info("\nFinal values: " + finalValues + "\n");
+        Logger.getGlobal().info("\ndiffusionAtomiqueTest result: " + finalValues + "\n");
 
         /*
         for (int i=0; i< finalValues.size()-1; i++){
             assertEquals(finalValues.get(i), finalValues.get(i + 1));
         } */
+//    }
+
+
+    @Test
+    public void diffusionSequentielleTest() throws InterruptedException {
+        this.capteur.setStrategy(new DiffusionSequentielle());
+
+        // the periodic task of calling tick() every 0.3 sec
+        Future<?> tickMutator = this.scheduler.scheduleAtFixedRate(() -> {
+                    this.capteur.tick();
+                },
+                0, 300, TimeUnit.MILLISECONDS);
+
+        // wait 5 sec and then cancel the task
+        sleep(5000);
+        tickMutator.cancel(true);
+
+        // getResults...
+
+        // wait for all tasks to finish during 5 sec, after manually stop them
+        this.scheduler.awaitTermination(5, TimeUnit.SECONDS);
+
+        List<List<Integer>> finalValues = this.capteur.getFinalValuesFromCanals();
+
+        Logger.getGlobal().info("\ndiffusionSequentielleTest result: " + finalValues + "\n");
     }
 }

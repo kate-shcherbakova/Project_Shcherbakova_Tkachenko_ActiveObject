@@ -23,7 +23,7 @@ public class CapteurImpl implements Capteur {
         if (!this.isLocked) {
             this.value++;
         }
-        // Logger.getGlobal().info("\nValue during tick(): " + this.value + "\n");
+        Logger.getGlobal().info("\nValue during tick(): " + this.value + "\n");
         this.strategy.execute();
     }
 
@@ -67,7 +67,7 @@ public class CapteurImpl implements Capteur {
 
     @Override
     public int getValue(Canal canal) {
-        this.strategy.unblockCanal(canal);
+        this.strategy.manageCanal(canal);
 
         return value;
     }
