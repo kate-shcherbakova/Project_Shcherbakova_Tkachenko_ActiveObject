@@ -19,7 +19,8 @@ public class DiffusionAtomique implements AlgoDiffusion {
     public void execute() {
         // if capteur is locked - value hasn't changed - no need to update
         if (!this.capteur.getIsLocked()) {
-            // ?? this.capteur.lock();
+            // canals are receiving the values now
+            this.capteur.lock();
 
             // signal to observer
             this.canalsFromCapteurImpl = this.capteur.getCanalsFromCapteurImpl();
@@ -28,4 +29,14 @@ public class DiffusionAtomique implements AlgoDiffusion {
             }
         }
     }
+
+    @Override
+    public void unblockCanal(Canal canal) {
+        this.canalsFromCapteurImpl.remove(canal);
+        // every canal has received a value
+        if (this.canalsFromCapteurImpl.isEmpty()) {
+            this.capteur.unlock();
+        }
+    }
+
 }

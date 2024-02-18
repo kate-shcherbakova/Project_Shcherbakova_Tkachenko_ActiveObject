@@ -4,11 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,10 +34,9 @@ public class ProjectTest {
         Canal canal2 = new Canal();
         Canal canal3 = new Canal();
 
-        Afficheur afficheur1 = new Afficheur();
-//        Afficheur afficheur1 = new Afficheur("Afficheur 1");
-        Afficheur afficheur2 = new Afficheur();
-        Afficheur afficheur3 = new Afficheur();
+        Afficheur afficheur1 = new Afficheur("Afficheur1");
+        Afficheur afficheur2 = new Afficheur("Afficheur2");
+        Afficheur afficheur3 = new Afficheur("Afficheur3");
 
         canal1.setScheduler(scheduler);
         canal2.setScheduler(scheduler);
@@ -63,5 +64,17 @@ public class ProjectTest {
         tickMutator.cancel(true);
 
         // getResults...
+
+        // wait for all tasks to finish during 5 sec, after manually stop them
+        this.scheduler.awaitTermination(5, TimeUnit.SECONDS);
+
+        List<List<Integer>> finalValues = this.capteur.getFinalValuesFromCanals();
+
+        // Logger.getGlobal().info("\nFinal values: " + finalValues + "\n");
+
+        /*
+        for (int i=0; i< finalValues.size()-1; i++){
+            assertEquals(finalValues.get(i), finalValues.get(i + 1));
+        } */
     }
 }

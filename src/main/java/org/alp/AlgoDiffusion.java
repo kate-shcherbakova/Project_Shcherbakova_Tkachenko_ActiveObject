@@ -6,5 +6,5 @@ public interface AlgoDiffusion {
 
     void execute();
 
-    // ?? int getValue(Canal canal);
+    void unblockCanal(Canal canal);
 }

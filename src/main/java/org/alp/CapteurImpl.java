@@ -1,7 +1,6 @@
 package org.alp;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class CapteurImpl implements Capteur {
@@ -24,7 +23,7 @@ public class CapteurImpl implements Capteur {
         if (!this.isLocked) {
             this.value++;
         }
-        Logger.getGlobal().info("\nValue during tick(): " + this.value + "\n");
+        // Logger.getGlobal().info("\nValue during tick(): " + this.value + "\n");
         this.strategy.execute();
     }
 
@@ -52,4 +51,45 @@ public class CapteurImpl implements Capteur {
         canal.detachSubjectFromObserver();
         this.canals.remove(canal);
     }
+
+    @Override
+    public void lock() {
+        this.isLocked = true;
+    }
+
+    @Override
+    public void unlock() {
+        this.isLocked = false;
+    }
+
+    //-------------------------------------------------------------------------------------
+    // Request from Afficheur for value
+
+    @Override
+    public int getValue(Canal canal) {
+        this.strategy.unblockCanal(canal);
+
+        return value;
+    }
+
+
+    //-------------------------------------------------------------------------------------
+
+    //-------------------------------------------------------------------------------------
+    // Get final values for test
+
+    @Override
+    public List<List<Integer>> getFinalValuesFromCanals() {
+        List<List<Integer>> finalValues = new ArrayList<>();
+
+        for (Canal canal : this.canals) {
+            finalValues.add(canal.getFinalValuesFromAfficheur());
+        }
+        return finalValues;
+    }
+
+    //-------------------------------------------------------------------------------------
+
+
 }
+
