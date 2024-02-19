@@ -1,4 +1,4 @@
-[### SHCHERBAKOVA Kateryna, TKACHENKO Oleksii
+### SHCHERBAKOVA Kateryna, TKACHENKO Oleksii
 
 ### M2 IL, ALP
 
